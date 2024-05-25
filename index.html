@@ -40,6 +40,7 @@
       <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
       <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
       <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
+      
       <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
       <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
     </div>
@@ -87,6 +88,13 @@
       event.preventDefault();
       const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
       window.open(lineUrl, '_blank');
+      hideSharePopup();
+    }
+
+      function shareOnWeChat(event) {
+      event.preventDefault();
+      const wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(wechatUrl, '_blank');
       hideSharePopup();
     }
 
