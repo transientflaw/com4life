@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standalone videos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(to bottom, #0d47a1, #42a5f5);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding-top: 100px;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 100%;
+      width: 100%;
+      text-align: center;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(13, 71, 161, 0.8);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      box-sizing: border-box;
+    }
+    .fa-cross {
+      font-size: 30px;
+      color: white;
+      margin-bottom: 5px;
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0;
+      color: #FFFFFF;
+    }
+    .link-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .link-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 15px;
+      padding: 15px 25px;
+      background-color: #FFFFFF;
+      color: #0d47a1;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative;
+      border: 2px solid transparent;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+    .link-btn:hover {
+      background-color: #0d47a1;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+    }
+    .share-icon {
+      display: block;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .separator {
+      width: 100%;
+      max-width: 500px;
+      height: 1px;
+      background-color: white;
+      margin: 30px 0;
+    }
+
+    .share-popup {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .share-popup-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 300px;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .share-popup-content a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #000;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .share-popup-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .share-popup-content a i {
+      margin-right: 10px;
+    }
+
+    .video-popup {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .video-popup-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .video-popup-content iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 10px;
+      }
+
+      .link-btn {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+
+      .share-icon {
+        font-size: 18px;
+      }
+
+      .share-popup-content {
+        width: 90%;
+        margin: 30% auto;
+      }
+
+      .video-popup-content iframe {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <i class="fas fa-cross"></i>
+    <h1>Standalone videos</h1>
+  </div>
+  <div class="container">
+    <div class="link-container">
+      <a href="https://www.youtube.com/watch?v=Zv5K4m2hgCA" class="link-btn" data-video-id="Zv5K4m2hgCA">English <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=51LRHhuOR18" class="link-btn" data-video-id="51LRHhuOR18">Chinese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=Fa8vQCGSsEo" class="link-btn" data-video-id="Fa8vQCGSsEo">Cantonese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=rmSRF0Ic7Bw" class="link-btn" data-video-id="rmSRF0Ic7Bw">Hainanese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=KJo91BBH0uU" class="link-btn" data-video-id="KJo91BBH0uU">Hakka <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=RkbgldZjY50" class="link-btn" data-video-id="RkbgldZjY50">Hokkien v1 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=yx-UtTtYkk0" class="link-btn" data-video-id="yx-UtTtYkk0">Hokkien v2 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=iL7yhkGeDAo" class="link-btn" data-video-id="iL7yhkGeDAo">Teochew <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=oz3R_3F7sfw" class="link-btn" data-video-id="oz3R_3F7sfw">Thai <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=R82_eFf2Hzc" class="link-btn" data-video-id="R82_eFf2Hzc">Indonesian <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=wAbmMiEa5-g" class="link-btn" data-video-id="wAbm
+      wAbmMiEa5-g">Tagalog <i class="fas fa-share-alt share-icon"></i></a>
+    </div>
+  </div>
+
+  <div class="share-popup" id="sharePopup">
+    <div class="share-popup-content">
+      <a href="#" onclick="shareOnFacebook(event)"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
+      <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
+      <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+      <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
+      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
+      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
+    </div>
+  </div>
+
+  <div class="video-popup" id="videoPopup">
+    <div class="video-popup-content">
+      <iframe id="videoFrame" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    const shareIcons = document.querySelectorAll('.share-icon');
+    const sharePopup = document.getElementById('sharePopup');
+    const videoPopup = document.getElementById('videoPopup');
+    const videoFrame = document.getElementById('videoFrame');
+    let currentLinkUrl;
+
+    shareIcons.forEach(icon => {
+      icon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        currentLinkUrl = icon.parentElement.href;
+        showSharePopup();
+      });
+    });
+
+    function showSharePopup() {
+      sharePopup.style.display = 'block';
+    }
+
+    function showVideoPopup(videoUrl) {
+      videoFrame.src = videoUrl;
+      videoPopup.style.display = 'block';
+    }
+
+    function shareOnFacebook(event) {
+      event.preventDefault();
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(facebookUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnMessenger(event) {
+      event.preventDefault();
+      const messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(messengerUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnWhatsApp(event) {
+      event.preventDefault();
+      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(whatsappUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnLine(event) {
+      event.preventDefault();
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(lineUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnTwitter(event) {
+      event.preventDefault();
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(twitterUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareByEmail(event) {
+      event.preventDefault();
+      const emailBody = `Check out this link: ${currentLinkUrl}`;
+      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function hideSharePopup() {
+      sharePopup.style.display = 'none';
+    }
+
+    function hideVideoPopup() {
+      videoPopup.style.display = 'none';
+      videoFrame.src = "";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == sharePopup) {
+        hideSharePopup();
+      }
+      if (event.target == videoPopup) {
+        hideVideoPopup();
+      }
+    }
+
+    const linkButtons = document.querySelectorAll('.link-btn');
+    linkButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const videoId = button.getAttribute('data-video-id');
+        const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+        showVideoPopup(videoUrl);
+      });
+    });
+  </script>
+</body>
+</html>
