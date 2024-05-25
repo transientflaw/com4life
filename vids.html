@@ -217,9 +217,9 @@
       <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
       <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
       <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
-      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
-      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
       <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
+      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
+      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>  
     </div>
   </div>
 
@@ -295,6 +295,14 @@
       hideSharePopup();
     }
 
+    
+    function shareOnWeChat(event) {
+      event.preventDefault();
+      const wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(wechatUrl, '_blank');
+      hideSharePopup();
+    }
+
     function shareOnTwitter(event) {
       event.preventDefault();
       const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
@@ -307,13 +315,6 @@
       const emailBody = `Check out this link: ${currentLinkUrl}`;
       const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
       window.open(emailUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnWeChat(event) {
-      event.preventDefault();
-      const wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
-      window.open(wechatUrl, '_blank');
       hideSharePopup();
     }
 
