@@ -36,17 +36,17 @@
 
   <div class="share-popup" id="sharePopup">
     <div class="share-popup-content">
-      <a href="#" onclick="shareOnFacebook(event)"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
-      <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
-      <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
-      <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
-      <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
-      <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
-      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
-      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
+      <a href="#" onclick="shareOnFacebook(event)"><i class="fab fa-facebook-square"></i
+    Share on Facebook</a>
+    <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
+    <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+    <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
+    <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
+    <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
+    <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
     </div>
-  </div>
 
+  </div>
   <script>
     const shareIcons = document.querySelectorAll('.share-icon');
     const sharePopup = document.getElementById('sharePopup');
@@ -73,7 +73,10 @@
 
     function shareOnMessenger(event) {
       event.preventDefault();
-      const messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
+      let messengerUrl = `fb-messenger://share/?
+      if (!isMobileDevice()) {
+        messengerUrl = `https://www.messenger.com/share?url=${encodeURIComponent(currentLinkUrl)}`;
+      }
       window.open(messengerUrl, '_blank');
       hideSharePopup();
     }
@@ -89,6 +92,16 @@
       event.preventDefault();
       const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
       window.open(lineUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnWeChat(event) {
+      event.preventDefault();
+      let wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      if (!isMobileDevice()) {
+        wechatUrl = `https://web.wechat.com/msg?url=${encodeURIComponent(currentLinkUrl)}`;
+      }
+      window.open(wechatUrl, '_blank');
       hideSharePopup();
     }
 
@@ -109,6 +122,10 @@
 
     function hideSharePopup() {
       sharePopup.style.display = 'none';
+    }
+
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     window.onclick = function(event) {
