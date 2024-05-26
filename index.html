@@ -72,48 +72,11 @@
 
     function shareOnMessenger(event) {
       event.preventDefault();
-      const messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(messengerUrl, '_blank');
-      hideSharePopup();
+      let messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)};
+      if (!isMobileDevice()) { messengerUrl = https://www.messenger.com/share?url=${encodeURIComponent(currentLinkUrl)}`;
     }
-
-    function shareOnWhatsApp(event) {
-      event.preventDefault();
-      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(whatsappUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnLine(event) {
-      event.preventDefault();
-      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
-      window.open(lineUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnTwitter(event) {
-      event.preventDefault();
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(twitterUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareByEmail(event) {
-      event.preventDefault();
-      const emailBody = `Check out this link: ${currentLinkUrl}`;
-      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
-      window.open(emailUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function hideSharePopup() {
-      sharePopup.style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-      if (event.target == sharePopup) {
-        hideSharePopup();
-      }
+    window.open(messengerUrl, '_blank');
+    hideSharePopup();
     }
   </script>
 </body>
