@@ -113,8 +113,7 @@ h1 {
   padding: 20px;
   border: 1px solid #888;
   width: 300px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Drop shadow effect */
+  border-radius: 5px;
   box-sizing: border-box;
 }
 
