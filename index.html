@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>"Hello, can I speak to God?"</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="header">
+    <i class="fas fa-cross"></i>
+    <h1>"Hello, can I speak to God?"</h1>
+  </div>
+  <div class="container">
+    <div class="link-container">
+      <a href="https://forms.gle/xfMYnQy7rjccifBE6" class="link-btn">English <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/uHSwppn5Rd7g8NEz7" class="link-btn">Chinese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/LsKC9JPgXibXJviX8" class="link-btn">Cantonese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/5Wk2QGa5oNwVHdbT6" class="link-btn">Hainanese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/5beuupaDQVhCBdqj9" class="link-btn">Hakka <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/dN7VgVEcsduBr83JA" class="link-btn">Hokkien v1 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/SJMfFn8WJ23NCmNq9" class="link-btn">Hokkien v2 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/3urp3BbSZ2nrRPcN9" class="link-btn">Teochew <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/z6SGN7DzrsoxNKij6" class="link-btn">Thai <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/GDBMYuv6tCj5ee156" class="link-btn">Indonesian <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://forms.gle/wxHSocmCAZAB4EjG7" class="link-btn">Tagalog <i class="fas fa-share-alt share-icon"></i></a>
+      <div class="separator"></div>
+      <a href="https://ugc.production.linktr.ee/6ebab148-23f4-43da-93e4-612322bc2d70_We-are-a-passionate-group-of-believers-who-desire-to-reach-out-to-your-loved-ones-with-the-gospel-of.pdf" class="link-btn">Who are we <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="vids.html" class="link-btn">Links to videos <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://ugc.production.linktr.ee/4b2938cd-d9a8-40be-9c53-7c3b34ef9c94_Tutorial-form-1.pdf" class="link-btn">Tutorial to share a questionnaire/form <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://docs.google.com/forms/u/1/d/13j037YP7z3R8tugzmhk1AqzZ5wZ41SM-MstAZ54QCwM/template/preview" class="link-btn">Chinese questionnaire template <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://docs.google.com/forms/d/1knXO1m_enL_gdtJNWVGzVufkVXKr5eMB1Upz7LrZc2w/template/preview" class="link-btn">English questionnaire template <i class="fas fa-share-alt share-icon"></i></a>
+    </div>
+  </div>
+
+  <div class="share-popup" id="sharePopup">
+    <div class="share-popup-content">
+      <a href="#" onclick="shareOnFacebook(event)"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
+      <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
+      <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+      <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
+      <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
+      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
+      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>
+    </div>
+  </div>
+
+  <script>
+    const shareIcons = document.querySelectorAll('.share-icon');
+    const sharePopup = document.getElementById('sharePopup');
+    let currentLinkUrl;
+
+    shareIcons.forEach(icon => {
+      icon.addEventListener('click', (event) => {
+        event.preventDefault();
+        currentLinkUrl = icon.parentElement.href;
+        showSharePopup();
+      });
+    });
+
+    function showSharePopup() {
+      sharePopup.style.display = 'block';
+    }
+
+    function shareOnFacebook(event) {
+      event.preventDefault();
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(facebookUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnMessenger(event) {
+      event.preventDefault();
+      const messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(messengerUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnWhatsApp(event) {
+      event.preventDefault();
+      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(whatsappUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnLine(event) {
+      event.preventDefault();
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(lineUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnWeChat(event) {
+      event.preventDefault();
+      const wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(wechatUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareOnTwitter(event) {
+      event.preventDefault();
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(twitterUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function shareByEmail(event) {
+      event.preventDefault();
+      const emailBody = `Check out this link: ${currentLinkUrl}`;
+      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl, '_blank');
+      hideSharePopup();
+    }
+
+    function hideSharePopup() {
+      sharePopup.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == sharePopup) {
+        hideSharePopup();
+      }
+    }
+  </script>
+</body>
+</html>
