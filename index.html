@@ -72,7 +72,10 @@
 
     function shareOnMessenger(event) {
       event.preventDefault();
-      const messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
+      let messengerUrl = `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`;
+      if (!isMobileDevice()) {
+        messengerUrl = `https://www.messenger.com/t/?link=${encodeURIComponent(currentLinkUrl)}`;
+      }
       window.open(messengerUrl, '_blank');
       hideSharePopup();
     }
@@ -93,7 +96,10 @@
 
     function shareOnWeChat(event) {
       event.preventDefault();
-      const wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      let wechatUrl = `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`;
+      if (!isMobileDevice()) {
+        wechatUrl = `https://web.wechat.com/?url=${encodeURIComponent(currentLinkUrl)}`;
+      }
       window.open(wechatUrl, '_blank');
       hideSharePopup();
     }
@@ -115,6 +121,10 @@
 
     function hideSharePopup() {
       sharePopup.style.display = 'none';
+    }
+
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     window.onclick = function(event) {
