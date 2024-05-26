@@ -110,7 +110,8 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6); /* Background color with some transparency */
+    backdrop-filter: blur(8px); /* Blur effect for the background page */
   }
   
   .share-popup-content {
@@ -120,6 +121,7 @@ body {
     border: 1px solid #888;
     width: 300px;
     border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Drop shadow effect */
     box-sizing: border-box;
   }
   
