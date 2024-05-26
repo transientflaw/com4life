@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Standalone videos</title>
-  <link rel="stylesheet" href="stylesvids.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="stylesvids.css">
 </head>
 <body>
   <div class="header">
@@ -30,13 +30,13 @@
 
   <div class="share-popup" id="sharePopup">
     <div class="share-popup-content">
-      <a href="#" onclick="shareOnFacebook(event)"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
-      <a href="#" onclick="shareOnMessenger(event)"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
-      <a href="#" onclick="shareOnWhatsApp(event)"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
-      <a href="#" onclick="shareOnLine(event)"><i class="fab fa-line"></i> Share on LINE</a>
-      <a href="#" onclick="shareOnWeChat(event)"><i class="fab fa-weixin"></i> Share on WeChat</a>
-      <a href="#" onclick="shareOnTwitter(event)"><i class="fab fa-twitter"></i> Share on Twitter</a>
-      <a href="#" onclick="shareByEmail(event)"><i class="fas fa-envelope"></i> Share by Email</a>  
+      <a href="#" id="shareFacebook"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
+      <a href="#" id="shareMessenger"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
+      <a href="#" id="shareWhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+      <a href="#" id="shareLine"><i class="fab fa-line"></i> Share on LINE</a>
+      <a href="#" id="shareWeChat"><i class="fab fa-weixin"></i> Share on WeChat</a>
+      <a href="#" id="shareTwitter"><i class="fab fa-twitter"></i> Share on Twitter</a>
+      <a href="#" id="shareEmail"><i class="fas fa-envelope"></i> Share by Email</a>  
     </div>
   </div>
 
@@ -84,65 +84,6 @@
       videoPopup.style.display = 'none';
     }
 
-    function isMobile() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      return /android|iPad|iPhone|iPod/i.test(userAgent);
-    }
-
-    function shareOnFacebook(event) {
-      event.preventDefault();
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(facebookUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnMessenger(event) {
-      event.preventDefault();
-      const messengerUrl = isMobile()
-        ? `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`
-        : `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(messengerUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnWhatsApp(event) {
-      event.preventDefault();
-      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(whatsappUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnLine(event) {
-      event.preventDefault();
-      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
-      window.open(lineUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnWeChat(event) {
-      event.preventDefault();
-      const wechatUrl = isMobile()
-        ? `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`
-        : `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`; // WeChat Web does not support direct URL sharing
-      window.open(wechatUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareOnTwitter(event) {
-      event.preventDefault();
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
-      window.open(twitterUrl, '_blank');
-      hideSharePopup();
-    }
-
-    function shareByEmail(event) {
-      event.preventDefault();
-      const emailBody = `Check out this link: ${currentLinkUrl}`;
-      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
-      window.open(emailUrl, '_blank');
-      hideSharePopup();
-    }
-
     function hideSharePopup() {
       sharePopup.style.display = 'none';
     }
@@ -154,6 +95,62 @@
         hideVideoPopup();
       }
     }
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    document.getElementById('shareFacebook').addEventListener('click', function(event) {
+      event.preventDefault();
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(facebookUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareMessenger').addEventListener('click', function(event) {
+      event.preventDefault();
+      const messengerUrl = isMobile
+        ? `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`
+        : `https://www.facebook.com/dialog/send?link=${encodeURIComponent(currentLinkUrl)}&app_id=YOUR_APP_ID`;
+      window.open(messengerUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareWhatsApp').addEventListener('click', function(event) {
+      event.preventDefault();
+      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(whatsappUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareLine').addEventListener('click', function(event) {
+      event.preventDefault();
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(lineUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareWeChat').addEventListener('click', function(event) {
+      event.preventDefault();
+      const wechatUrl = isMobile
+        ? `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`
+        : `https://web.wechat.com/?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(wechatUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareTwitter').addEventListener('click', function(event) {
+      event.preventDefault();
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(twitterUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareEmail').addEventListener('click', function(event) {
+      event.preventDefault();
+      const emailBody = `Check out this link: ${currentLinkUrl}`;
+      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl, '_blank');
+      hideSharePopup();
+    });
   </script>
 </body>
 </html>
