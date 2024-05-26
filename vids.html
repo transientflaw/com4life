@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standalone videos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="stylesvids.css">
+</head>
+<body>
+  <div class="header">
+    <i class="fas fa-video"></i>
+    <h1>Standalone videos</h1>
+  </div>
+  <div class="container">
+    <div class="link-container">
+      <a href="https://www.youtube.com/watch?v=Zv5K4m2hgCA" class="link-btn" data-video-id="Zv5K4m2hgCA">English <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=51LRHhuOR18" class="link-btn" data-video-id="51LRHhuOR18">Chinese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=Fa8vQCGSsEo" class="link-btn" data-video-id="Fa8vQCGSsEo">Cantonese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=rmSRF0Ic7Bw" class="link-btn" data-video-id="rmSRF0Ic7Bw">Hainanese <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=KJo91BBH0uU" class="link-btn" data-video-id="KJo91BBH0uU">Hakka <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=RkbgldZjY50" class="link-btn" data-video-id="RkbgldZjY50">Hokkien v1 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=yx-UtTtYkk0" class="link-btn" data-video-id="yx-UtTtYkk0">Hokkien v2 <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=iL7yhkGeDAo" class="link-btn" data-video-id="iL7yhkGeDAo">Teochew <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=oz3R_3F7sfw" class="link-btn" data-video-id="oz3R_3F7sfw">Thai <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=R82_eFf2Hzc" class="link-btn" data-video-id="R82_eFf2Hzc">Indonesian <i class="fas fa-share-alt share-icon"></i></a>
+      <a href="https://www.youtube.com/watch?v=wAbmMiEa5-g" class="link-btn" data-video-id="wAbmMiEa5-g">Tagalog <i class="fas fa-share-alt share-icon"></i></a>
+    </div>
+  </div>
+
+  <div class="share-popup" id="sharePopup">
+    <div class="share-popup-content">
+      <a href="#" id="shareFacebook"><i class="fab fa-facebook-square"></i> Share on Facebook</a>
+      <a href="#" id="shareMessenger"><i class="fab fa-facebook-messenger"></i> Share on Messenger</a>
+      <a href="#" id="shareWhatsApp"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
+      <a href="#" id="shareLine"><i class="fab fa-line"></i> Share on LINE</a>
+      <a href="#" id="shareWeChat"><i class="fab fa-weixin"></i> Share on WeChat</a>
+      <a href="#" id="shareTwitter"><i class="fab fa-twitter"></i> Share on Twitter</a>
+      <a href="#" id="shareEmail"><i class="fas fa-envelope"></i> Share by Email</a>  
+    </div>
+  </div>
+
+  <div class="video-popup" id="videoPopup">
+    <div class="video-popup-content">
+      <iframe id="videoFrame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    const shareIcons = document.querySelectorAll('.share-icon');
+    const sharePopup = document.getElementById('sharePopup');
+    const videoPopup = document.getElementById('videoPopup');
+    const videoFrame = document.getElementById('videoFrame');
+    let currentLinkUrl;
+
+    shareIcons.forEach(icon => {
+      icon.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        currentLinkUrl = icon.parentElement.href;
+        showSharePopup();
+      });
+    });
+
+    document.querySelectorAll('.link-btn').forEach(link => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const videoId = link.getAttribute('data-video-id');
+        showVideoPopup(videoId);
+      });
+    });
+
+    function showSharePopup() {
+      sharePopup.style.display = 'block';
+    }
+
+    function showVideoPopup(videoId) {
+      videoFrame.src = `https://www.youtube.com/embed/${videoId}`;
+      videoPopup.style.display = 'flex';
+    }
+
+    function hideVideoPopup() {
+      videoFrame.src = '';
+      videoPopup.style.display = 'none';
+    }
+
+    function hideSharePopup() {
+      sharePopup.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == sharePopup) {
+        hideSharePopup();
+      } else if (event.target == videoPopup) {
+        hideVideoPopup();
+      }
+    }
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    document.getElementById('shareFacebook').addEventListener('click', function(event) {
+      event.preventDefault();
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(facebookUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareMessenger').addEventListener('click', function(event) {
+      event.preventDefault();
+      const messengerUrl = isMobile
+        ? `fb-messenger://share/?link=${encodeURIComponent(currentLinkUrl)}`
+        : `https://www.facebook.com/dialog/send?link=${encodeURIComponent(currentLinkUrl)}&app_id=YOUR_APP_ID`;
+      window.open(messengerUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareWhatsApp').addEventListener('click', function(event) {
+      event.preventDefault();
+      const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(whatsappUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareLine').addEventListener('click', function(event) {
+      event.preventDefault();
+      const lineUrl = `https://line.me/R/msg/text/?${encodeURIComponent(currentLinkUrl)}`;
+      window.open(lineUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareWeChat').addEventListener('click', function(event) {
+      event.preventDefault();
+      const wechatUrl = isMobile
+        ? `weixin://dl/chat?${encodeURIComponent(currentLinkUrl)}`
+        : `https://web.wechat.com/?text=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(wechatUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareTwitter').addEventListener('click', function(event) {
+      event.preventDefault();
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentLinkUrl)}`;
+      window.open(twitterUrl, '_blank');
+      hideSharePopup();
+    });
+
+    document.getElementById('shareEmail').addEventListener('click', function(event) {
+      event.preventDefault();
+      const emailBody = `Check out this link: ${currentLinkUrl}`;
+      const emailUrl = `mailto:?subject=Link%20Share&body=${encodeURIComponent(emailBody)}`;
+      window.open(emailUrl, '_blank');
+      hideSharePopup();
+    });
+  </script>
+</body>
+</html>
